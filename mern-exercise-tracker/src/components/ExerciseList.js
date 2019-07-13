@@ -50,7 +50,7 @@ const ExerciseList = () => {
                                     <td>{exercise.username}</td>
                                     <td>{exercise.description}</td>
                                     <td>{exercise.duration}</td>
-                                    <td>{exercise.date.toString()}</td>
+                                    <td>{new Date(exercise.date).toDateString()}</td>
                                     <td>
                                         <Link to={`/edit/${exercise._id}`}>Edit</Link>
                                         {` | `}
