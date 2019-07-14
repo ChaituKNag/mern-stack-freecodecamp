@@ -36,5 +36,7 @@ app.use(express.json());
 app.use('/.netlify/functions/server/exercises', exercisesRouter);
 app.use('/.netlify/functions/server/users', usersRouter);
 
+app.use(express.static('../build'));
+
 module.exports = app;
 module.exports.handler = serverless(app);
