@@ -1,4 +1,4 @@
-const domain = process.env.DOMAIN || 'http://localhost:3000';
+const domain = process.env.DOMAIN || '';
 
 module.exports = {
   SERVER_APP_ROOT: `${domain}/.netlify/functions/server`,
