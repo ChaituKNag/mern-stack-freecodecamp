@@ -1,9 +1,12 @@
 'use strict';
+const { SERVER_APP_ROOT_REL } = require('../src/constants');
 const express = require('express');
+const cors = require('cors');
 const serverless = require('serverless-http');
 const mongoose = require('mongoose');
 const usersRouter = require('./routes/users');
 const exercisesRouter = require('./routes/exercises');
+const path = require('path');
 
 require('dotenv').config();
 
@@ -20,6 +23,8 @@ connection.once('open', () => {
     console.log('MongoDB database connection has been established successfully');
 })
 
+app.use('/', express.static(path.join(__dirname, '../build')));
+app.use(cors());
 app.use(express.json());
 
 // const router = express.Router();
@@ -33,10 +38,8 @@ app.use(express.json());
 
 // app.use('/.netlify/functions/server', router); 
 
-app.use('/.netlify/functions/server/exercises', exercisesRouter);
-app.use('/.netlify/functions/server/users', usersRouter);
-
-app.use(express.static('../build'));
+app.use(`${SERVER_APP_ROOT_REL}/exercises`, exercisesRouter);
+app.use(`${SERVER_APP_ROOT_REL}/users`, usersRouter);
 
 module.exports = app;
 module.exports.handler = serverless(app);

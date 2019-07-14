@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import DatePicker from 'react-datepicker';
 import axios from 'axios';
 import 'react-datepicker/dist/react-datepicker.css';
+import { SERVER_APP_ROOT } from '../constants';
 
 const EditExercise = ({history, match}) => {
 
@@ -30,7 +31,7 @@ const EditExercise = ({history, match}) => {
         e.preventDefault();
 
         console.log(currentExercise);
-        axios.post(`http://localhost:5000/api/exercises/update/${match.params.id}`, currentExercise)
+        axios.post(`${SERVER_APP_ROOT}/exercises/update/${match.params.id}`, currentExercise)
             .then(res => {
                 console.log(res.data);
                 history.push('/');
@@ -39,14 +40,14 @@ const EditExercise = ({history, match}) => {
 
     // will be removed for actual data
     useEffect(() => {
-        axios.get('http://localhost:5000/api/users')
+        axios.get(`${SERVER_APP_ROOT}/users`)
             .then(res => {
                 if(res.data.length > 0) {
                     setUsers(res.data.map(user => user.username));
                 }
             });
 
-        axios.get(`http://localhost:5000/api/exercises/${match.params.id}`)
+        axios.get(`${SERVER_APP_ROOT}/exercises/${match.params.id}`)
             .then(res => {
                 if(res.data) {
                     const exercise = res.data

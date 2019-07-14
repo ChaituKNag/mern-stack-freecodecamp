@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import {SERVER_APP_ROOT} from '../constants';
 
 const CreateUser = () => {
 
@@ -15,7 +16,7 @@ const CreateUser = () => {
 
         console.log(username);
 
-        axios.post('http://localhost:5000/api/users/add', {
+        axios.post(`${SERVER_APP_ROOT}/users/add`, {
             username
         }).then((res) => {
             console.log(res.data);

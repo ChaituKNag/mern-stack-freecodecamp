@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import {SERVER_APP_ROOT} from '../constants';
 
 const ExerciseList = () => {
 
     const [exercises, setExercises] = useState(null);
 
     const getAllExercises = () => {
-        axios.get('http://localhost:5000/api/exercises')
+        axios.get(`${SERVER_APP_ROOT}/exercises`)
         .then(res => {
             if(res.data.length > 0) {
                 console.log(res.data);
@@ -17,7 +18,7 @@ const ExerciseList = () => {
     }
 
     const handleDelete = (id) => () => {
-        axios.delete(`http://localhost:5000/api/exercises/${id}`)
+        axios.delete(`${SERVER_APP_ROOT}/exercises/${id}`)
             .then((res) => {
                 if(res.data) {
                     setExercises(prevExercises => prevExercises.filter(e => id !== e._id));

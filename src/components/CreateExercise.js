@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import DatePicker from 'react-datepicker';
 import axios from 'axios';
 import 'react-datepicker/dist/react-datepicker.css';
+import {SERVER_APP_ROOT} from '../constants';
 
 const CreateExercise = ({history}) => {
 
@@ -30,7 +31,7 @@ const CreateExercise = ({history}) => {
         e.preventDefault();
 
         console.log(currentExercise);
-        axios.post('http://localhost:5000/api/exercises/add', currentExercise)
+        axios.post(`${SERVER_APP_ROOT}/exercises/add`, currentExercise)
             .then(res => {
                 console.log(res.data);
                 history.push('/');
@@ -39,7 +40,7 @@ const CreateExercise = ({history}) => {
 
     // will be removed for actual data
     useEffect(() => {
-        axios.get('http://localhost:5000/api/users')
+        axios.get(`${SERVER_APP_ROOT}/users`)
             .then(res => {
                 if(res.data.length > 0) {
                     setUsers(res.data.map(user => user.username));
